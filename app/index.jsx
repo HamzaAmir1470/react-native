@@ -1,13 +1,14 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, StatusBar } from 'react-native'
-import Tiger from "../assets/img/logoDark.jpg" 
+import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, StatusBar, Pressable } from 'react-native'
+import Tiger from "../assets/img/logoDark.jpg"
+import { Link } from 'expo-router'
 
 const Home = () => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <StatusBar barStyle="light-content" />
             <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
-                
+
                 {/* Hero Image Container */}
                 <View style={styles.imageContainer}>
                     <Image source={Tiger} style={styles.image} resizeMode="cover" />
@@ -39,18 +40,12 @@ const Home = () => {
                     {/* Divider Line */}
                     <View style={styles.divider} />
 
-                    {/* Description Section */}
-                    <Text style={styles.sectionTitle}>Overview</Text>
-                    <Text style={styles.description}>
-                        The legendary Black Tiger is not a distinct subspecies, but rather a melanistic variant of the Bengal Tiger. 
-                        Due to a rare genetic mutation, their black stripes are highly dilated and fuse together, nearly eclipsing their orange fur. 
-                        This striking coat acts as the perfect camouflage in the dense, dappled shadows of their native forests.
-                    </Text>
-
-                    <Text style={styles.description}>
-                        Today, these elusive predators are almost exclusively found in the Similipal Tiger Reserve in Odisha, India. 
-                        With only a handful believed to exist in the wild, witnessing one is akin to catching a glimpse of a living myth.
-                    </Text>
+                    {/* Styled Learn More Link */}
+                    <Link href="/about" asChild>
+                        <Pressable style={styles.linkButton}>
+                            <Text style={styles.linkButtonText}>Learn More</Text>
+                        </Pressable>
+                    </Link>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -140,17 +135,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#2A2A2E',
         marginBottom: 24,
     },
-    sectionTitle: {
-        fontSize: 18,
-        fontWeight: '700',
-        color: '#FFFFFF',
-        marginBottom: 12,
+    linkButton: {
+        backgroundColor: '#E0A96D', // Premium gold color
+        paddingVertical: 14,
+        borderRadius: 24,
+        width: '100%',
+        alignItems: 'center',
+        marginTop: 8,
     },
-    description: {
-        fontSize: 15,
-        lineHeight: 24,
-        color: '#D1D1D6',
-        marginBottom: 16,
-        textAlign: 'justify',
+    linkButtonText: {
+        color: '#0F0F10', // Dark text color to stand out on the gold button
+        fontSize: 16,
+        fontWeight: '700',
     },
 })
