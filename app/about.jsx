@@ -8,11 +8,11 @@ const About = () => {
             <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
 
                 {/* Back Navigation Link styled like a premium button */}
-                <Link href="/" asChild>
+                {/* <Link href="/" asChild>
                     <Pressable style={styles.backButton}>
                         <Text style={styles.backButtonText}>← Back to Home</Text>
                     </Pressable>
-                </Link>
+                </Link> */}
 
                 {/* Content Section */}
                 <View style={styles.content}>
