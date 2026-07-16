@@ -2,7 +2,7 @@
 
 Welcome to the repository for my React Native mobile application. This project is built using **Expo SDK 57**, utilizing modern mobile development practices including file-based routing and backend-as-a-service integration.
 
-This README documents the progress, architecture, and setup instructions completed through **Lesson 1** and **Lesson 2**.
+This README documents the progress, architecture, and setup instructions completed through **Lesson 1**, **Lesson 2**, and **Lesson 3**.
 
 ---
 
@@ -27,6 +27,19 @@ In this lesson, the application's user interface was expanded with a rich-conten
    * Custom stylized horizontal badge rows displaying metadata (`Status`, `Habitat`, `Genetic Variant`).
 2. **Asset Organization**: Organized and structured local asset imports (such as `tiger.jpg` and logo variations) inside the dynamic `../assets/img/` directory path.
 3. **Debugging Platform Bundling Errors**: Resolved a critical Metro bundler mismatch (`Unable to resolve "react-native-web/dist/index"`) by properly installing missing universal web dependencies (`react-native-web`, `react-dom`, and `@expo/metro-runtime`) via Expo CLI, aligning platform targets correctly.
+
+---
+
+## 🧭 Lesson 3 Milestones: Multi-Page Navigation & Native Features
+
+In this lesson, the app evolved into a fully navigable, multi-page layout by introducing additional screens, refactoring touch interactions, and integrating native platform modules:
+
+1. **App Architecture & File-Based Routing Expansion**: Expanded the `expo-router` setup by building and connecting dedicated pages:
+   * **About Screen (`/about`)**: Houses detailed overviews, structural text alignments using justified formatting, and dynamic container layouts.
+   * **Contact Screen (`/contact`)**: Displays support details housed in specialized dark borders and card shadows.
+2. **Interactive Elements Re-architecting**: Fixed and optimized Expo Router navigation elements by swapping out simple, raw `<Text>` components inside link wrappers for an explicit `asChild` configuration coupled with React Native `<Pressable>` containers. This provides native press highlights and a vastly improved touch-target zone.
+3. **Native Deep Linking Integration**: Integrated the native React Native `Linking` module on the Contact screen, implementing a `mailto:` shortcut behavior that automatically prompts the mobile operating system to fire open the device's default email client with pre-filled subject and recipient lines upon clicking.
+4. **Dynamic Flex Layout Optimization**: Cleaned up alignment pitfalls (`alignItems: 'center'`) across inner screens, switching to fluid flex containers and implementing `marginTop: 'auto'` anchoring to pin important system messages flawlessly to the viewport baseline.
 
 ---
 
