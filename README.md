@@ -27,6 +27,9 @@ In this lesson, the application's user interface was expanded with a rich-conten
    * Custom stylized horizontal badge rows displaying metadata (`Status`, `Habitat`, `Genetic Variant`).
 2. **Asset Organization**: Organized and structured local asset imports (such as `tiger.jpg` and logo variations) inside the dynamic `../assets/img/` directory path.
 3. **Debugging Platform Bundling Errors**: Resolved a critical Metro bundler mismatch (`Unable to resolve "react-native-web/dist/index"`) by properly installing missing universal web dependencies (`react-native-web`, `react-dom`, and `@expo/metro-runtime`) via Expo CLI, aligning platform targets correctly.
+Image
+
+<img width="640" height="874" alt="image" src="https://github.com/user-attachments/assets/ba8c0ef1-adf2-482b-a00a-ad7c7104c126" />
 
 ---
 
