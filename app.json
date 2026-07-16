@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "reactapp", 
     "name": "react-app",
     "slug": "react-app",
     "version": "1.0.0",
