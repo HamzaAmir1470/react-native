@@ -46,11 +46,6 @@ const Home = () => {
                     <View style={styles.divider} />
 
                     {/* Styled Learn More Link */}
-                    <Link href="/about" asChild>
-                        <Pressable style={styles.linkButton}>
-                            <Text style={styles.linkButtonText}>Learn More</Text>
-                        </Pressable>
-                    </Link>
                     <Link href="/login" asChild>
                         <Pressable style={styles.linkButton}>
                             <Text style={styles.linkButtonText}>Login</Text>
@@ -59,6 +54,16 @@ const Home = () => {
                     <Link href="/register" asChild>
                         <Pressable style={styles.linkButton}>
                             <Text style={styles.linkButtonText}>Register</Text>
+                        </Pressable>
+                    </Link>
+                    <Link href="/profile" asChild>
+                        <Pressable style={styles.linkButton}>
+                            <Text style={styles.linkButtonText}>Profile Page</Text>
+                        </Pressable>
+                    </Link>
+                    <Link href="/books" asChild>
+                        <Pressable style={styles.linkButton}>
+                            <Text style={styles.linkButtonText}>Books</Text>
                         </Pressable>
                     </Link>
                 </View>
