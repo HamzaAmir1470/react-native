@@ -16,8 +16,8 @@ const RootLayout = () => {
                 backgroundColor: theme.navBackground,
                 borderBottomWidth: 1,
                 borderBottomColor: '#222225',
-                shadowColor: 'transparent', 
-                elevation: 0, 
+                shadowColor: 'transparent',
+                elevation: 0,
             },
             headerTintColor: theme.title,
             headerTitleStyle: {
@@ -28,6 +28,7 @@ const RootLayout = () => {
             headerTitleAlign: 'center',
         }}>
             <Stack.Screen name="index" options={{ title: 'Home' }} />
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
             <Stack.Screen name="about" options={{ title: 'About' }} />
             <Stack.Screen name="contact" options={{ title: 'Contact', headerShown: false }} />
         </Stack>

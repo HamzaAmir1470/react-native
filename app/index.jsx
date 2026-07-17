@@ -51,6 +51,16 @@ const Home = () => {
                             <Text style={styles.linkButtonText}>Learn More</Text>
                         </Pressable>
                     </Link>
+                    <Link href="/login" asChild>
+                        <Pressable style={styles.linkButton}>
+                            <Text style={styles.linkButtonText}>Login</Text>
+                        </Pressable>
+                    </Link>
+                    <Link href="/register" asChild>
+                        <Pressable style={styles.linkButton}>
+                            <Text style={styles.linkButtonText}>Register</Text>
+                        </Pressable>
+                    </Link>
                 </View>
             </ScrollView>
         </SafeAreaView>
