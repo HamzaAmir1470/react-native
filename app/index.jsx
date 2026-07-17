@@ -1,7 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, StatusBar, Pressable } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, SafeAreaView, StatusBar, Pressable } from 'react-native'
 import Tiger from "../assets/img/logoDark.jpg"
 import { Link } from 'expo-router'
+
+// ThemedView Component
+import ThemedView from '../components/ThemedView'
+import ThemedLogo from '../components/ThemedLogo'
+import Spacer from '../components/Spacer'
 
 const Home = () => {
     return (
@@ -10,10 +15,10 @@ const Home = () => {
             <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
 
                 {/* Hero Image Container */}
-                <View style={styles.imageContainer}>
-                    <Image source={Tiger} style={styles.image} resizeMode="cover" />
+                <ThemedView style={styles.imageContainer}>
+                    <ThemedLogo style={styles.image} />
                     <View style={styles.imageOverlay} />
-                </View>
+                </ThemedView>
 
                 {/* Content Card */}
                 <View style={styles.contentContainer}>
