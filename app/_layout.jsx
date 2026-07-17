@@ -1,23 +1,29 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, useColorScheme } from 'react-native'
 import React from 'react'
 import { Stack } from 'expo-router'
+import { Colors } from '../constants/Colors'
 
 const RootLayout = () => {
+
+    const colorScheme = useColorScheme()
+    console.log('Color Scheme:', colorScheme)
+    const theme = Colors[colorScheme] ?? Colors.light
+
+
     return (
         <Stack screenOptions={{
-            // Deep dark theme for the header background
             headerStyle: {
-                backgroundColor: '#0F0F10',
-                borderBottomWidth: 1, // Subtle divider line
+                backgroundColor: theme.navBackground,
+                borderBottomWidth: 1,
                 borderBottomColor: '#222225',
-                shadowColor: 'transparent', // Removes shadow on iOS
-                elevation: 0, // Removes shadow on Android
+                shadowColor: 'transparent', 
+                elevation: 0, 
             },
-            headerTintColor: '#E0A96D',
+            headerTintColor: theme.title,
             headerTitleStyle: {
                 fontWeight: '800',
                 fontSize: 18,
-                color: '#FFFFFF',
+                color: theme.title,
             },
             headerTitleAlign: 'center',
         }}>
