@@ -1,19 +1,27 @@
-import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { StyleSheet, TextInput } from 'react-native'
 import React from 'react'
 import { Colors } from '../../constants/Colors'
 
 // themed Component
 import ThemedView from '../../components/ThemedView'
+import ThemedTextInput from '../../components/ThemedTextInput'
 import ThemedText from '../../components/ThemedText'
 import Spacer from '../../components/Spacer'
 import { Link } from 'expo-router'
 import ThemedButton from '../../components/ThemedButton'
 
 const login = () => {
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
 
     const handleLogin = () => {
-        // Handle login logic here
-        console.log('Login button pressed');
+        if (!email || !password) {
+            alert("Please enter both email and password.")
+            return
+        }
+        console.log("You have successfully logged in!", email, password)
+        setEmail('')
+        setPassword('')
     }
 
     return (
@@ -23,13 +31,28 @@ const login = () => {
                 Login to your account
             </ThemedText>
 
+            <ThemedTextInput
+                style={{ width: '80%', marginTop: 20, borderColor: Colors.primary, borderWidth: 1, borderRadius: 5 }}
+                placeholder="Email"
+                keyboardType="email-address"
+                value={email}
+                onChangeText={setEmail}
+            />
+            <ThemedTextInput
+                style={{ width: '80%', marginTop: 20, borderColor: Colors.primary, borderWidth: 1, borderRadius: 5 }}
+                placeholder="Password"
+                secureTextEntry={true}
+                value={password}
+                onChangeText={setPassword}
+            />
+
             <ThemedButton style={styles.button} onPress={handleLogin}>
                 <ThemedText style={{ color: Colors.light.text }}>
                     Login
                 </ThemedText>
             </ThemedButton>
 
-            <Spacer height={100} />
+            <Spacer height={10} />
             <Link href="/register">
                 <ThemedText style={styles.registerText}>
                     <Link href="/register">
@@ -50,7 +73,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     registerText: {
-        color: 'blue',
+        color: '#fff',
         textDecorationLine: 'underline'
     },
     button: {
@@ -61,5 +84,10 @@ const styles = StyleSheet.create({
     },
     pressed: {
         opacity: 0.8,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: "#E0A96D",
     }
 })
