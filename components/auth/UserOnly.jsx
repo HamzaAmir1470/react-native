@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { useUser } from "../../hooks/useUser";
 import { useEffect } from "react";
-import { Text } from "react-native";
+import ThemedLoader from "../ThemedLoader";
 
 const UserOnly = ({ children }) => {
     // 1. Destructure the 'loading' flag instead of the 'checkUserSession' function
@@ -17,7 +17,8 @@ const UserOnly = ({ children }) => {
 
     // 3. Keep showing a loading state while the Appwrite API call is executing
     if (loading) {
-        return <Text style={{ color: '#fff', textAlign: 'center', marginTop: 50 }}>Loading...</Text>;
+        return
+        <ThemedLoader />
     }
 
     // 4. If a user exists, render the dashboard tabs

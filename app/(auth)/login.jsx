@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { Colors } from '../../constants/Colors'
 
@@ -10,6 +10,7 @@ import Spacer from '../../components/Spacer'
 import { Link, useRouter } from 'expo-router' // Added useRouter for navigation
 import ThemedButton from '../../components/ThemedButton'
 import { useUser } from '../../hooks/useUser'
+import ThemedLoader from '../../components/ThemedLoader'
 
 const login = () => {
     const [email, setEmail] = React.useState('')
@@ -91,6 +92,8 @@ const login = () => {
                     Don't have an account? Register here
                 </ThemedText>
             </Link>
+           
+
         </ThemedView >
     )
 }
