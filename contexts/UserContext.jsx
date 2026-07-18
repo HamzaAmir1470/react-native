@@ -53,7 +53,7 @@ export function UserProvider({ children }) {
         }
     }
 
-    async function register(email, password, name = "User") {
+    async function register(name, email, password) {
         try {
             // 1. Create the official user account in Appwrite
             await account.create(ID.unique(), email, password, name);

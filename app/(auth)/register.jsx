@@ -11,6 +11,7 @@ import { useUser } from '../../hooks/useUser' // Import the hook
 
 const register = () => {
     const [email, setEmail] = React.useState('')
+    const [name, setName] = React.useState('')
     const [password, setPassword] = React.useState('')
     const [confirmPassword, setConfirmPassword] = React.useState('')
     const [isSubmitting, setIsSubmitting] = React.useState(false)
@@ -27,7 +28,7 @@ const register = () => {
         setIsSubmitting(true)
 
         try {
-            await appwriteRegister(email, password)
+            await appwriteRegister(name, email, password)
             alert("Account created successfully!")
             router.replace('/(auth)/login') // Navigate back to login or dashboard
         } catch (error) {
@@ -44,6 +45,14 @@ const register = () => {
                 <ThemedText title={true} style={styles.title}>
                     Register for an account
                 </ThemedText>
+
+                <ThemedTextInput
+                    style={{ width: '80%', marginTop: 20, borderColor: Colors.primary, borderWidth: 1, borderRadius: 5 }}
+                    placeholder="Name"
+                    value={name}
+                    onChangeText={setName}
+                    editable={!isSubmitting}
+                />
 
                 <ThemedTextInput
                     style={{ width: '80%', marginTop: 20, borderColor: Colors.primary, borderWidth: 1, borderRadius: 5 }}
@@ -81,7 +90,7 @@ const register = () => {
                     </ThemedText>
                 </ThemedButton>
 
-                <Spacer height={100} />
+                <Spacer height={20} />
 
                 <Link href="/(auth)/login" asChild>
                     <ThemedText style={styles.registerText}>
@@ -102,7 +111,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     registerText: {
-        color: 'blue',
+        color: '#E0A96D',
         textDecorationLine: 'underline'
     },
     button: {
