@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
 import { Colors } from '../../constants/Colors'
 
@@ -7,21 +7,43 @@ import ThemedView from '../../components/ThemedView'
 import ThemedTextInput from '../../components/ThemedTextInput'
 import ThemedText from '../../components/ThemedText'
 import Spacer from '../../components/Spacer'
-import { Link } from 'expo-router'
+import { Link, useRouter } from 'expo-router' // Added useRouter for navigation
 import ThemedButton from '../../components/ThemedButton'
+import { useUser } from '../../hooks/useUser'
 
 const login = () => {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
+    const [isSubmitting, setIsSubmitting] = React.useState(false) // Added loading state
 
-    const handleLogin = () => {
+    // Destructure the login action out of your hook
+    const { login: appwriteLogin } = useUser()
+    const router = useRouter()
+    
+    const handleLogin = async () => {
         if (!email || !password) {
             alert("Please enter both email and password.")
             return
         }
-        console.log("You have successfully logged in!", email, password)
-        setEmail('')
-        setPassword('')
+
+        setIsSubmitting(true)
+
+        try {
+            // Call the authentication method from UserContext
+            await appwriteLogin(email, password)
+            
+            // Clear inputs on success
+            setEmail('')
+            setPassword('')
+            
+            // Redirect them to the home page or main dashboard
+            router.replace('/profile') // Update this string to your target main route
+        } catch (error) {
+            // Friendly error message for bad credentials or network issues
+            alert(error.message || "Login failed. Please check your credentials.")
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -35,29 +57,38 @@ const login = () => {
                 style={{ width: '80%', marginTop: 20, borderColor: Colors.primary, borderWidth: 1, borderRadius: 5 }}
                 placeholder="Email"
                 keyboardType="email-address"
+                autoCapitalize="none" // Keeps email from capitalizing first letter
                 value={email}
                 onChangeText={setEmail}
+                editable={!isSubmitting} // Disable inputs during network request
             />
             <ThemedTextInput
                 style={{ width: '80%', marginTop: 20, borderColor: Colors.primary, borderWidth: 1, borderRadius: 5 }}
                 placeholder="Password"
                 secureTextEntry={true}
+                autoCapitalize="none"
                 value={password}
                 onChangeText={setPassword}
+                editable={!isSubmitting}
             />
 
-            <ThemedButton style={styles.button} onPress={handleLogin}>
+            {/* Disable button and show alternative text if loading */}
+            <ThemedButton 
+                style={[styles.button, isSubmitting && styles.disabledButton]} 
+                onPress={handleLogin}
+                disabled={isSubmitting}
+            >
                 <ThemedText style={{ color: Colors.light.text }}>
-                    Login
+                    {isSubmitting ? "Logging in..." : "Login"}
                 </ThemedText>
             </ThemedButton>
 
             <Spacer height={10} />
-            <Link href="/register">
+            
+            {/* Cleaned up duplicate nested Link components */}
+            <Link href="/register" asChild>
                 <ThemedText style={styles.registerText}>
-                    <Link href="/register">
-                        Don't have an account? Register here
-                    </Link>
+                    Don't have an account? Register here
                 </ThemedText>
             </Link>
         </ThemedView >
@@ -82,8 +113,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginTop: 20,
     },
-    pressed: {
-        opacity: 0.8,
+    disabledButton: {
+        opacity: 0.5,
     },
     title: {
         fontSize: 24,
