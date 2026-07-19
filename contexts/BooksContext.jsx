@@ -1,6 +1,8 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { databases } from '../lib/appwrite';
-import { ID } from "react-native-appwrite";
+// Imported Query, Permission, Role, and ID from the official SDK package
+import { ID, Permission, Role, Query } from "react-native-appwrite";
+import { useUser } from "../hooks/useUser";
 
 const DATABASE_ID = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID;
 const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID;
@@ -11,51 +13,71 @@ export function BooksProvider({ children }) {
     const [books, setBooks] = useState([]);
     const { user } = useUser();
 
+
+    // Fetches all books belonging to the authenticated user, ordered alphabetically by title
     async function fetchBooks() {
         try {
-
+            const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
+                Query.orderAsc('title'),
+                Query.equal('userId', [user.$id])
+            ]);
+            setBooks(response.documents);
         } catch (error) {
-            console.error(error.message);
+            console.error("Fetch books error:", error.message);
         }
     }
 
+    // Fetches a single book's details by its document ID
     async function fetchBookById(id) {
-
         try {
-
+            const book = await databases.getDocument(DATABASE_ID, COLLECTION_ID, id);
+            return book;
         } catch (error) {
-
+            console.error("Fetch book by ID error:", error.message);
+            throw error;
         }
     }
 
+    // Creates a new book document with strict user-level permissions
     async function createBook(data) {
         try {
-            const newBook = await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
-                ...data, userId: user.$id
-            },
+            const newBook = await databases.createDocument(
+                DATABASE_ID,
+                COLLECTION_ID,
+                ID.unique(),
+                { ...data, userId: user.$id },
                 [
-                Permissions.read(Role.user(user.$id)),
-                Permissions.update(Role.user(user.$id)),
-                Permissions.delete(Role.user(user.$id))
-            ]
+                    Permission.read(Role.user(user.$id)),
+                    Permission.update(Role.user(user.$id)),
+                    Permission.delete(Role.user(user.$id))
+                ]
             );
             setBooks(prevBooks => [...prevBooks, newBook]);
+            return newBook;
         } catch (error) {
-            console.error(error.message);
+            console.error("Create book error:", error.message);
         }
     }
 
+    // Deletes a book from Appwrite and immediately updates local state
     async function deleteBook(id) {
         try {
-
+            await databases.deleteDocument(DATABASE_ID, COLLECTION_ID, id);
+            setBooks(prevBooks => prevBooks.filter(book => book.$id !== id));
         } catch (error) {
-            console.error(error.message);
+            console.error("Delete book error:", error.message);
         }
     }
-
+    useEffect(() => {
+        if (user) {
+            fetchBooks();
+        }
+        else {
+            setBooks([]);
+        }
+    }, [user])
     return (
         <BooksContext.Provider value={{ books, setBooks, fetchBooks, fetchBookById, createBook, deleteBook }}>
-
             {children}
         </BooksContext.Provider>
     );
