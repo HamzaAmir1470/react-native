@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native"
-import { useLocalSearchParams } from "expo-router"
+import { StyleSheet, Text } from "react-native"
+import { useLocalSearchParams, useRouter } from "expo-router"
 import { useEffect, useState } from "react"
 import { useBooks } from "../../../hooks/useBooks"
 
@@ -14,7 +14,7 @@ import ThemedLoader from "../../../components/ThemedLoader"
 const BookDetails = () => {
     const { id } = useLocalSearchParams()
     const [book, setBook] = useState(null)
-    const { fetchBookById } = useBooks()
+    const { fetchBookById, deleteBook } = useBooks()
     useEffect(() => {
         const fetchBook = async () => {
             const bookData = await fetchBookById(id)
@@ -22,7 +22,7 @@ const BookDetails = () => {
         }
         fetchBook()
     }, [id])
-    
+    const router = useRouter()
     if (!book) {
         return (
             <ThemedView safe={true} style={styles.container}>
@@ -31,7 +31,11 @@ const BookDetails = () => {
         )
     }
 
-
+    const handleDelete = async () => {
+        await deleteBook(id)
+        setBook(null)
+        router.replace("/books")
+    }
     return (
         <ThemedView safe={true} style={styles.container}>
             {/* Fixed: changed 'styles' to 'style' so the styling actually applies */}
@@ -45,7 +49,13 @@ const BookDetails = () => {
                 <Spacer height={10} />
                 <ThemedText style={styles.description}>{book?.description}</ThemedText>
             </ThemedCard>
-        </ThemedView>
+
+            <ThemedButton style={styles.delete} onPress={handleDelete}>
+                <Text style={{ color: "#fff", textAlign: "center" }}>
+                    Delete Book
+                </Text>
+            </ThemedButton>
+        </ThemedView >
     )
 }
 
@@ -72,7 +82,6 @@ const styles = StyleSheet.create({
     card: {
 
         width: "auto",
-        padding: 20,
         borderRadius: 10,
 
         // Added: Border styles
@@ -89,4 +98,11 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 3,
     },
+    delete: {
+        backgroundColor: "red",
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 10,
+        width: "auto",
+    }
 })

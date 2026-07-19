@@ -3,7 +3,7 @@
 export const Colors = {
     primary: '#E0A96D', // Signature gold accent
 
-    warning: '#FF6B6B', // Warning red
+    warning: '#ff6b6b5f', // Warning red
 
     dark: {
         text: '#D4D4D4',

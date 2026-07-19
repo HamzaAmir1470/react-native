@@ -79,6 +79,9 @@ export function BooksProvider({ children }) {
                 if (events[0].includes('databases.documents.create')) {
                     setBooks(prevBooks => [...prevBooks, payload]);
                 }
+                if (events[0].includes('databases.documents.delete')) {
+                    setBooks(prevBooks => prevBooks.filter(book => book.$id !== payload.$id));
+                }
             });
         }
         else {
