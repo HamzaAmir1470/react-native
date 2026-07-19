@@ -2,7 +2,7 @@
 
 Welcome to the repository for my React Native mobile application. This project is built using **Expo SDK 57**, utilizing modern mobile development practices including file-based routing and backend-as-a-service integration.
 
-This README documents the progress, architecture, and setup instructions completed through **Lesson 1** to **Lesson 4**.
+This README documents the progress, architecture, and setup instructions completed through **Lesson 1** to **Lesson 35**.
 
 ---
 
@@ -27,9 +27,6 @@ In this lesson, the application's user interface was expanded with a rich-conten
    - Custom stylized horizontal badge rows displaying metadata (`Status`, `Habitat`, `Genetic Variant`).
 2. **Asset Organization**: Organized and structured local asset imports (such as `tiger.jpg` and logo variations) inside the dynamic `../assets/img/` directory path.
 3. **Debugging Platform Bundling Errors**: Resolved a critical Metro bundler mismatch (`Unable to resolve "react-native-web/dist/index"`) by properly installing missing universal web dependencies (`react-native-web`, `react-dom`, and `@expo/metro-runtime`) via Expo CLI, aligning platform targets correctly.
-Image
-
-<img width="640" height="874" alt="image" src="https://github.com/user-attachments/assets/ba8c0ef1-adf2-482b-a00a-ad7c7104c126" />
 
 ---
 
@@ -60,13 +57,46 @@ In this lesson, the global app shell and navigation options were consolidated in
 
 ---
 
+## 📝 Lessons 5–13 Milestones: Data Input, State Management & List Optimization
+
+In this phase, the application moved from static screens to dynamic data capture, focusing on standard text manipulation, interactive structures, and high-performance lists:
+
+1. **Reactive State with Form Inputs**: Built interactive data-capturing forms using the `<TextInput>` component. Utilized two-way data binding via `useState` to update character strings in real-time, incorporating custom attributes like `multiline` and native numerical keyboard configurations.
+2. **Optimized Structural Rendering (FlatList)**: Replaced inefficient vertical maps with `<FlatList>` components to render large datasets. Leveraged the built-in `keyExtractor` mechanism and `renderItem` patterns to enforce strict memory recycling across native scroll behaviors.
+3. **Dynamic Interaction Engine**: Engineered robust CRUD (Create, Read, Update, Delete) behaviors by wiring component state functions to individual touchable wrapper blocks (`<TouchableOpacity>`). Users can interactively tap layout cells to clear items from the state array immediately.
+
+---
+
+## 📐 Lessons 14–22 Milestones: Advanced Deep Layouts, Flexbox Layouts & Core Modals
+
+This section established advanced UI behaviors, structural layouts, and conditional view controls:
+
+1. **Flexbox Architecture Mastery**: Modeled high-fidelity mobile designs using React Native Flexbox models. Mapped structural child components along primary axes (`flexDirection: 'row'`) and alternative lines using explicit `justifyContent` and `alignItems` combinations.
+2. **Modular Architecture Breakdowns**: Deconstructed monolithic application roots into atomic, highly reusable presentational components (e.g., custom Header layouts, Todo form wrappers, and Input fields) using explicit item configuration mappings (`props`).
+3. **Contextual Overlay Components**: Integrated the native `<Modal>` component to orchestrate dismissible overlay cards. Managed modal visibility transitions (`animationType="slide"`) through localized boolean flag triggers linked to header menu interactions.
+
+---
+
+## 🧩 Lessons 23–35 Milestones: Extensible Library Plugins & Global Layout Contexts
+
+The final phase of the course architecture focused on custom external utility tools, high-fidelity UI assets, and automated interaction hooks:
+
+1. **External Vector Icon Ecosystem Integration**: Enhanced interactive tap actions by embedding rich visual cues using the `@expo/vector-icons` library package, reducing dependencies on bulky structural local assets.
+2. **Form Validation Middleware Engine**: Integrated third-party utility libraries **Formik** and **Yup** to manage form states systematically. Created structured input validation schemas to handle clean form submissions and provide immediate feedback for inline input errors.
+3. **Native Touch-Dismiss Interaction**: Integrated the native `<TouchableWithoutFeedback>` component along with the global mobile hardware device system configuration (`Keyboard.dismiss()`) to allow users to cleanly hide active keypads by tapping outside input regions.
+
+---
+
 ## 🛠️ Tech Stack & Dependencies
 
 - **Framework**: React Native (v0.86.0) via Expo (SDK 57)
 - **Language**: JavaScript (v6.0.3) / TypeScript
 - **Routing**: Expo Router (v57.0.6)
-- **Backend Integration**: Appwrite SDK
+- **Validation**: Formik & Yup Verification Layers
+- **Icons**: Expo Vector Icons Engine
+- **Backend Integration**: Appwrite BaaS SDK
 - **Rendering Engine**: React 19 (React Compiler enabled)
 - **Web Target Engine**: React Native Web (v0.19.x)
 
 ---
+*Course references based on the [Net Ninja Complete React Native Tutorial Playlist](https://www.youtube.com/playlist?list=PL4cUxeGkcC9hNTz3sxqGTfxAwU-DIHJd2).*
