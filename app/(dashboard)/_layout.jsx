@@ -30,6 +30,10 @@ export default function DashboardLayout() {
                     name="create"
                     options={{ title: "Create", tabBarIcon: ({ focused }) => <Ionicons name={focused ? "add-circle" : "add-circle-outline"} size={24} color={focused ? theme.iconColorFocused : theme.iconColor} /> }}
                 />
+                <Tabs.Screen
+                    name="books/[id]"
+                    options={{href: null}}
+                />
             </Tabs>
         </UserOnly>
     )

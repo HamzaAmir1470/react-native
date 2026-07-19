@@ -1,18 +1,23 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { StyleSheet, FlatList, Pressable } from 'react-native';
 
 import Spacer from "../../components/Spacer";
 import ThemedText from "../../components/ThemedText";
 import ThemedView from "../../components/ThemedView";
 
-// 1. Import your context
 import { useBooks } from '../../hooks/useBooks';
+import { useRouter } from 'expo-router';
 
 const Books = () => {
+    // 1. Destructure fetchBooks alongside your books state array
     const { books, fetchBooks } = useBooks();
+    const router = useRouter();
 
+    // 2. Uncomment and run fetchBooks when the component mounts
     useEffect(() => {
-        fetchBooks();
+        if (fetchBooks) {
+            fetchBooks();
+        }
     }, []);
 
     return (
@@ -23,7 +28,6 @@ const Books = () => {
                 Your Reading List
             </ThemedText>
 
-            {/* 4. Render the list dynamically */}
             <FlatList
                 data={books}
                 keyExtractor={(item) => item.$id}
@@ -34,13 +38,14 @@ const Books = () => {
                     </ThemedText>
                 }
                 renderItem={({ item }) => (
-                    <Pressable>
-                        <ThemedView style={styles.bookCard}>
-                            <ThemedText style={styles.bookTitle}>{item.title}</ThemedText>
-                            {item.author && (
-                                <ThemedText style={styles.bookAuthor}>by {item.author}</ThemedText>
-                            )}
-                        </ThemedView>
+                    <Pressable
+                        onPress={() => router.push(`/books/${item.$id}`)}
+                        style={styles.bookCard}
+                    >
+                        <ThemedText style={styles.bookTitle}>{item.title}</ThemedText>
+                        {item.author && (
+                            <ThemedText style={styles.bookAuthor}>by {item.author}</ThemedText>
+                        )}
                     </Pressable>
                 )}
             />
@@ -53,13 +58,13 @@ export default Books;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "flex-start", // Changed from center so the list starts at the top
+        justifyContent: "flex-start",
         alignItems: "stretch",
         paddingHorizontal: 16,
     },
     heading: {
         fontWeight: "bold",
-        fontSize: 22, // Bumped up slightly for a prominent title
+        fontSize: 22,
         textAlign: "center",
         marginBottom: 16,
     },
@@ -71,7 +76,7 @@ const styles = StyleSheet.create({
         padding: 16,
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: '#ccc', // You can swap this with a themed border color if available
+        borderColor: '#ccc',
         marginBottom: 12,
     },
     bookTitle: {

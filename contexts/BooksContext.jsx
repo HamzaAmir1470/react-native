@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { databases } from '../lib/appwrite';
+import { databases, client } from '../lib/appwrite';
 // Imported Query, Permission, Role, and ID from the official SDK package
 import { ID, Permission, Role, Query } from "react-native-appwrite";
 import { useUser } from "../hooks/useUser";
@@ -14,7 +14,6 @@ export function BooksProvider({ children }) {
     const { user } = useUser();
 
 
-    // Fetches all books belonging to the authenticated user, ordered alphabetically by title
     async function fetchBooks() {
         try {
             const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
@@ -69,11 +68,27 @@ export function BooksProvider({ children }) {
         }
     }
     useEffect(() => {
+        let unsubscribe;
+        const channel = `databases.${DATABASE_ID}.collections.${COLLECTION_ID}.documents`;
+
+
         if (user) {
             fetchBooks();
+            unsubscribe = client.subscribe(channel, (response) => {
+                const { payload, events } = response;
+                if (events[0].includes('databases.documents.create')) {
+                    setBooks(prevBooks => [...prevBooks, payload]);
+                }
+            });
         }
         else {
             setBooks([]);
+        }
+
+        return () => {
+            if (unsubscribe) {
+                unsubscribe();
+            }
         }
     }, [user])
     return (
